@@ -38,3 +38,15 @@
     ]
    (render-some-page pd))) ;; renders-the-page
    ;; the let-async macro returns a async it self to
+
+
+;; make a function doing something each time a event fires
+;; obs! (:use [async-kit.event :only [await-event]])
+
+(defn log-errors []
+  (let-async
+   [error (await-event :error)]
+   ;; note await-event only fires once
+   ;; (witch is a requirement of AsyncFuture)
+   (ajax :method "POST" :url "/log/error" :data error)
+   (log-errors)))

@@ -1,4 +1,5 @@
-(ns async-kit.core)
+(ns async-kit.core
+  (:use-macros [async-kit.macros :only [async let-async]]))
 
 (defprotocol Future
   (error [this]
@@ -50,3 +51,6 @@
                        (sub e nil)))))]
     (callback value-cb error-cb)
     future))
+
+
+
