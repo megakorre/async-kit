@@ -12,7 +12,7 @@
 (defn wait [time]
  (async [complete error]
   (js/setTimeout
-   (fn [] (complete true)))))
+   (fn [] (complete true)) time)))
 
 ;; and wrap jQuery .ajax
 
@@ -33,7 +33,7 @@
 (defn some-async-render-stuf-thing []
   (let-async
    [json-data (ajax :method "GET" :url "/something" :data-type "json")
-    :let pd   (prosess-data json-data) ;; normal let
+    :let pd   (prosess-data json-data) ;; normal let
     _         (wait 2000) ;; wait for 2 secs cuz why not
     ]
    (render-some-page pd))) ;; renders-the-page
