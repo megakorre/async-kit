@@ -53,4 +53,26 @@
     future))
 
 
+(defn ajax 
+  "requires jquery"
+  [& { :keys [url type data-type data] }]
+  (async [compl error]
+   (let [opts (new js/Object) s aset]
+    (-> opts 
+      (s "url" url)
+      (s "type" (name type))
+      (s "error" error)
+      (s "success" compl)
+      (s "dataType" (name data-type)))
+    (.ajax js/jQuery opts))))
+
+(defn wait 
+  "async wait for given time in ms"
+  [time]
+    (async [c e]
+      (js/setTimeout #(c true) time)))
+
+
+
+
 
